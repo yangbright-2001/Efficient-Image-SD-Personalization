@@ -1,0 +1,25 @@
+project_name: ece285_dgm_final
+subject_name: bear_plushie
+class_name: teddy_bear
+placeholder_token: "<mybear>"
+
+paths:
+  sd15_model: models/base/sd15
+  raw_instance_dir: data/raw/instance/bear_plushie
+  raw_prior_dir: data/raw/prior/teddy_bear
+  processed_instance_dir: data/processed/instance_512
+  processed_prior_dir: data/processed/prior_512
+  textual_inversion_output: outputs/textual_inversion
+  lora_output: outputs/lora
+  validation_samples: outputs/samples/validation
+  inference_samples: outputs/samples/inference
+
+prompts:
+  instance: "a photo of <mybear> teddy bear"
+  prior: "a photo of a teddy bear"
+
+training:
+  image_size: 512
+  textual_inversion_steps: 1500
+  lora_rank: 8
+  prior_weight: 1.0

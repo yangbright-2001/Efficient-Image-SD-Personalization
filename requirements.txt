@@ -1,0 +1,9 @@
+torch>=2.0
+diffusers>=0.27
+transformers>=4.36
+accelerate>=0.25
+safetensors
+huggingface_hub
+Pillow
+pyyaml
+peft>=0.7
