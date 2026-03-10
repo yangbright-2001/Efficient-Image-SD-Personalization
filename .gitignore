@@ -1,0 +1,23 @@
+# Model weights
+models/
+*.safetensors
+*.ckpt
+*.bin
+*.pt
+
+# Generated data
+data/raw/prior/
+data/processed/
+outputs/lora
+outputs/textual_inversion
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# HuggingFace cache
+.cache/
+
+# OS
+.DS_Store

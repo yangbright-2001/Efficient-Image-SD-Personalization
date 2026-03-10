@@ -93,6 +93,7 @@ def main():
     pipe = StableDiffusionPipeline.from_pretrained(
         str(model_path),
         torch_dtype=dtype,
+        variant="fp16",
         safety_checker=None,
         requires_safety_checker=False,
     )

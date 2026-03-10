@@ -55,8 +55,19 @@ def main():
         repo_id=REPO_ID,
         repo_type="model",
         local_dir=str(model_dir),
-        local_dir_use_symlinks=False,
         token=token,
+        allow_patterns=[
+            "model_index.json",
+            "scheduler/*",
+            "tokenizer/*",
+            "feature_extractor/preprocessor_config.json",
+            "text_encoder/config.json",
+            "text_encoder/model.fp16.safetensors",
+            "unet/config.json",
+            "unet/diffusion_pytorch_model.fp16.safetensors",
+            "vae/config.json",
+            "vae/diffusion_pytorch_model.fp16.safetensors",
+        ],
     )
 
     print(f"\nDone. Model saved to {model_dir}")
