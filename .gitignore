@@ -8,8 +8,6 @@ models/
 # Generated data
 data/raw/prior/
 data/processed/
-outputs/lora
-outputs/textual_inversion
 
 # Python
 __pycache__/
