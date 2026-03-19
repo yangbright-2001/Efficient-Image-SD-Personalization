@@ -2,14 +2,11 @@
 
 Compute-efficient few-shot personalization pipeline for Stable Diffusion v1.5, combining **Textual Inversion** and **Targeted LoRA** to teach the model a specific subject (bear plushie) from only a handful of images.
 
-Built as the final project for UCSD ECE 285 — Deep Generative Models.
-
 ## Method Overview
 
 The pipeline personalizes Stable Diffusion in two lightweight stages:
 
 1. **Stage 1 — Textual Inversion**: A new token `<mybear>` is added to the text encoder vocabulary. Only this single embedding vector is trained while all other parameters remain frozen, teaching the model to associate `<mybear>` with the target subject's visual appearance.
-
 2. **Stage 2 — Targeted LoRA Fine-Tuning**: Low-rank adaptation matrices (LoRA) are inserted into selected UNet cross-attention layers (`mid_block`, `down_blocks.2`, `up_blocks.1`). Only the LoRA parameters are optimized, with a prior-preservation loss to prevent the model from forgetting what a generic teddy bear looks like.
 
 After training, the model can generate the specific subject in novel scenes by simply using prompts containing `<mybear>`.
@@ -21,6 +18,8 @@ After training, the model can generate the specific subject in novel scenes by s
 - **DINO-I** — identity fidelity: cosine similarity between DINOv2 features of generated images and the mean DINOv2 features of instance references.
 
 ## Directory Layout
+
+Outputs and ablation studies for the model with `rank=8`, `prior weight=1.0` is already included in `outputs/`
 
 ```text
 .
@@ -60,11 +59,11 @@ After training, the model can generate the specific subject in novel scenes by s
 
 All prompts are stored as plain text files under `data/prompts/` and referenced by the config.
 
-| File | Content | Used By |
-|------|---------|---------|
-| `instance_prompt.txt` | `a photo of <mybear> teddy bear` | Textual Inversion & LoRA training (instance branch) |
-| `prior_prompt.txt` | `a photo of a teddy bear` | Prior image generation & LoRA training (prior branch) |
-| `test_prompts.txt` | 5 evaluation prompts placing `<mybear>` in varied scenes (jungle, snow, beach, mountain, shiny) | Inference & ablation scripts |
+| File                    | Content                                                                                           | Used By                                               |
+| ----------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `instance_prompt.txt` | `a photo of <mybear> teddy bear`                                                                | Textual Inversion & LoRA training (instance branch)   |
+| `prior_prompt.txt`    | `a photo of a teddy bear`                                                                       | Prior image generation & LoRA training (prior branch) |
+| `test_prompts.txt`    | 5 evaluation prompts placing `<mybear>` in varied scenes (jungle, snow, beach, mountain, shiny) | Inference & ablation scripts                          |
 
 The placeholder token `<mybear>` is defined in `configs/project.yaml` and automatically substituted at runtime.
 
@@ -84,7 +83,7 @@ training:
   prior_weight: 1.0
 ```
 
-Every script reads this config via `--config configs/project.yaml` (default), so you rarely need to pass CLI flags unless overriding specific values.
+Every script reads this config via `--config configs/project.yaml` (default), so we rarely need to pass CLI flags unless overriding specific values.
 
 ## Workflow
 
@@ -107,7 +106,7 @@ python scripts/download_model.py --token YOUR_HF_TOKEN   # explicit token
 
 ### 2. Prepare instance images
 
-Place 3–10 photos of the target subject into `data/raw/instance/bear_plushie/`.
+Place photos of the target subject into `data/raw/instance/bear_plushie/`, 5 images of `bear_plushie` from `Google/Dreambooth` dataset are placed.
 
 ### 3. Generate class-prior images
 
