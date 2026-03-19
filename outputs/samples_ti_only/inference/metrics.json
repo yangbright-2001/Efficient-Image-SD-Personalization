@@ -1,0 +1,16 @@
+{
+  "mode": "ti_only",
+  "CLIP-T": 0.2985581517219543,
+  "CLIP-I": 0.7495339353879292,
+  "DINO-I": 0.5987166941165925,
+  "num_prompts": 5,
+  "num_images_per_prompt": 3,
+  "total_images": 15,
+  "prompts": [
+    "a photo of <mybear> teddy bear in the jungle",
+    "a photo of <mybear> teddy bear in the snow",
+    "a photo of <mybear> teddy bear on the beach",
+    "a photo of <mybear> teddy bear with a mountain in the background",
+    "a shiny <mybear> teddy bear"
+  ]
+}
